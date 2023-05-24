@@ -4,15 +4,11 @@ from .models import Category, Product
 
 
 def all_products(request):
-    products = Product.objects.all()
+    products = Product.objects.filter(is_active=True)
     return render(request, 'store/home.html', {'products': products})
 
 
-def categories(request):
-    return {'categories': Category.objects.all()}
-
-
-def product_detail(request, address):
+def product_detail(request, address, category_address):
     product = get_object_or_404(Product, address=address, in_stock=True)
     return render(request, 'store/detail.html', {'product': product})
 
